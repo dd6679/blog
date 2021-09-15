@@ -2,24 +2,26 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Member(models.Model):
-    id = models.CharField(primary_key=True, max_length=32)
-    password = models.CharField(max_length=32)
-    nickname = models.CharField(max_length=10)
-    email = models.CharField(max_length=128)
-
-
-class Posts(models.Model):
+class Post(models.Model):
     title = models.CharField(primary_key=True, max_length=32)
     post_text = models.TextField()
     public = models.BooleanField()
     date = models.DateTimeField(auto_now_add=True)
-    #image = models.ImageField()
-    #video = models.CharField(max_length=128, blank=True, null=True) n개..
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Video(models.Model):
+    post_title = models.ForeignKey('Post', db_column='title', on_delete=models.CASCADE)
+    url = models.CharField(max_length=128, null=True, blank=True)
+
+
+class Photo(models.Model):
+    post_title = models.ForeignKey('Post', db_column='title', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='img/', blank=True, null=True)
 
 
 class Comment(models.Model):
-    post_title = models.ForeignKey('Posts', db_column='title', on_delete=models.CASCADE, null=True)
+    post_title = models.ForeignKey('Post', db_column='title', on_delete=models.CASCADE, null=True)
     comment_text = models.TextField(max_length=128)
     public = models.BooleanField()
     date = models.DateTimeField(auto_now_add=True)

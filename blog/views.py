@@ -1,5 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Post
+
 
 def index(request):
-    return HttpResponse("Hi")
+    post_list = Post.objects.order_by('date')
+    return render(request, 'blog/post_list.html', {'post_list': post_list})
+
+
+def detail(request, title):
+    post = Post.objects.get(title=title)
+    return render(request, 'blog/post_detail.html', {'post':post})
