@@ -9,6 +9,10 @@
 </div>
 <div>
     {{ post.post_text }}
+    {% if post.photo.image %}
+        {{ post.photo.image.url }}
+        <img src="{{ post.photo.image.url }}" alt="" height="600">
+    {% endif %}
 </div>
 
 {% endblock %}

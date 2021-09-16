@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class UserForm(UserCreationForm):
     email = forms.EmailField(label="이메일")
+    nickname = forms.CharField(label="이름")
 
     class Meta:
         model = User
