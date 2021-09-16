@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+
 {% if post_list %}
     <ul>
     {% for post in post_list %}
@@ -7,3 +10,5 @@
 {% else %}
     <p>게시글이 없습니다.</p>
 {% endif %}
+
+{% endblock %}
