@@ -2,7 +2,11 @@
 {% block content %}
 
 <h1>{{ post.title }}</h1>
-
+<div>
+    {{ post.user }}
+    {{ post.date }}
+    {{ post.public }}
+</div>
 <div>
     {{ post.post_text }}
 </div>
