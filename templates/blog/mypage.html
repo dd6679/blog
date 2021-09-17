@@ -1,0 +1,4 @@
+{% extends 'base.html' %}
+{% block content %}
+    <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
+{% endblock %}

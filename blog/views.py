@@ -19,7 +19,9 @@ def create(request):
     if request.method == 'POST' or request.method == 'FILES':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False) #DB save 지연시켜 중복 save 방지
+            post.user = request.user
+            post.save()
             return redirect('index')
     else:
         form = PostForm()
