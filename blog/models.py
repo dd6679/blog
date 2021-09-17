@@ -3,9 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
-    title = models.CharField(primary_key=True, max_length=32)
+    title = models.CharField(max_length=32)
     post_text = models.TextField()
-    public = models.BooleanField()
+    public = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 

@@ -1,8 +1,8 @@
 from django import forms
+from .models import Post, Photo
 
 
-class PostForm(forms.Form):
-    title = forms.CharField()
-    post_text = forms.CharField(widget=forms.Textarea)
-    public = forms.BooleanField()
-    image = forms.ImageField()
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = '__all__'

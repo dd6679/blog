@@ -1,8 +1,10 @@
-{% extends "base.html" %}
+{% extends "common_base.html" %}
 {% block content %}
 <div class="container my-3">
-    <div class="row">
-            <h4>로그인</h4>
+    <div class="row my-3">
+        <div class="col-4">
+                <h1>LogIn</h1>
+        </div>
     </div>
     <form method="post" class="post-form" action="{% url 'common:login' %}">
         {% csrf_token %}
@@ -18,7 +20,7 @@
         <div class="form-group">
         <a href="{% url 'common:signup' %}">회원가입</a>
         </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
+        <button type="submit" class="btn btn-danger">로그인</button>
     </form>
 </div>
 {% endblock %}

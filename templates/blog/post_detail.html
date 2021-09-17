@@ -8,6 +8,11 @@
     {{ post.public }}
 </div>
 <div>
+        <a href="#" class="delete btn btn-sm btn-outline-secondary"
+       data-uri="{% url 'blog:post_delete' post.title  %}">삭제</a>
+</div>
+<div>
+    {{ post.post_text }}
     {{ post.post_text }}
     {% if post.photo.image %}
         {{ post.photo.image.url }}
@@ -15,4 +20,15 @@
     {% endif %}
 </div>
 
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".delete").on('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+});
+</script>
 {% endblock %}

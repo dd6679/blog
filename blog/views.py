@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Photo
 from django.core.paginator import Paginator
@@ -17,26 +19,28 @@ def create(request):
     if request.method == 'POST' or request.method == 'FILES':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = Post()
-            post.title = form.cleaned_data['title']
-            post.post_text = form.cleaned_data['post_text']
-            post.public = form.cleaned_data['public']
-            post.user = request.user
-            post.save()
-            photo = Photo()
-            photo.post_title = post.title
-            photo.image = form.cleaned_data['image']
-            photo.save()
+            form.save()
             return redirect('index')
     else:
         form = PostForm()
     return render(request, 'blog/post_create.html', {'form':form})
 
 
-def detail(request, title):
-    post = Post.objects.filter(title=title)
-    return render(request, 'blog/post_detail.html', {'post':post})
+def detail(request, post_id):
+    post = Post.objects.get(id=post_id)
+    content = {'post':post}
+    return render(request, 'blog/post_detail.html', content)
 
 
 def mypage(request):
     return render(request, 'blog/mypage.html')
+
+
+@login_required(login_url='common:login')
+def post_delete(request, title):
+    post = get_object_or_404(Post, pk=title)
+    if request.user != post.user:
+        messages.error(request, '삭제권한이 없습니다')
+        return redirect('blog:detail', title=title)
+    post.delete()
+    return redirect('blog:index')

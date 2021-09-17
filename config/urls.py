@@ -7,5 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
     path('common/', include('common.urls')),
-    path('', views.index, name='index'),
+    path('blog/', views.index, name='index'),
+    path('', auth_views.LoginView.as_view(template_name='common/login.html'), name='login'),
 ]
