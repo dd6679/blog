@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Photo
 from django.core.paginator import Paginator
 from .forms import PostForm
+from django.utils import timezone
 
 
 def index(request):
@@ -39,10 +40,30 @@ def mypage(request):
 
 
 @login_required(login_url='common:login')
-def post_delete(request, title):
-    post = get_object_or_404(Post, pk=title)
+def post_modify(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.user != post.user:
+        messages.error(request, '수정권한이 없습니다')
+        return redirect('blog:detail', post_id=post.id)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.date = timezone.now()  # 수정일시 저장
+            post.save()
+            return redirect('blog:detail', post_id=post.id)
+    else:
+        form = PostForm(instance=post)
+    context = {'form': form}
+    return render(request, 'blog/post_create.html', context)
+
+
+@login_required(login_url='common:login')
+def post_delete(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
     if request.user != post.user:
         messages.error(request, '삭제권한이 없습니다')
-        return redirect('blog:detail', title=title)
+        return redirect('blog:detail', post_id=post.id)
     post.delete()
     return redirect('blog:index')
