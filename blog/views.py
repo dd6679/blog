@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Photo
 from django.core.paginator import Paginator
-from .forms import PostForm
+from .forms import PostForm, PhotoForm
 from django.utils import timezone
 
 
@@ -18,20 +18,26 @@ def index(request):
 
 def create(request):
     if request.method == 'POST' or request.method == 'FILES':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
+        form = PostForm(request.POST)
+        photoform = PhotoForm(request.FILES)
+        if form.is_valid() and photoform.is_valid():
             post = form.save(commit=False) #DB save 지연시켜 중복 save 방지
             post.user = request.user
             post.save()
+            photo = photoform.save(commit=False)
+            photo.post_id = post
+            photo.save()
             return redirect('index')
     else:
         form = PostForm()
-    return render(request, 'blog/post_create.html', {'form':form})
+        photoform = PhotoForm()
+    return render(request, 'blog/post_create.html', {'form':form, 'photoform':photoform})
 
 
 def detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    content = {'post':post}
+    photo = Photo.objects.get(post_id=post_id)
+    content = {'post':post, 'photo':photo}
     return render(request, 'blog/post_detail.html', content)
 
 

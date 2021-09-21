@@ -5,6 +5,13 @@
     <table class="table">
         {{ form.as_table }}
     </table>
+    {{photoform}}
+    <div class="my-3">
+        <a
+           class="btn btn-sm btn-outline-secondary">사진</a>
+        <a
+           class="delete btn btn-sm btn-outline-secondary">동영상</a>
+    </div>
     <input type="submit" class="btn btn-danger" value="완료">
 </form>
 {% endblock %}

@@ -11,17 +11,17 @@ class Post(models.Model):
 
 
 class Video(models.Model):
-    post_title = models.ForeignKey('Post', db_column='title', on_delete=models.CASCADE)
+    post_id = models.ForeignKey('Post', db_column='post_id', on_delete=models.CASCADE, null=True)
     url = models.CharField(max_length=128, null=True, blank=True)
 
 
 class Photo(models.Model):
-    post_title = models.ForeignKey('Post', db_column='title', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='img/', blank=True, null=True)
+    post_id = models.ForeignKey('Post', db_column='post_id', on_delete=models.CASCADE, null=True)
+    image = models.ImageField(upload_to='img', blank=True, null=True)
 
 
 class Comment(models.Model):
-    post_title = models.ForeignKey('Post', db_column='title', on_delete=models.CASCADE, null=True)
+    post_id = models.ForeignKey('Post', db_column='post_id', on_delete=models.CASCADE, null=True)
     comment_text = models.TextField(max_length=128)
     public = models.BooleanField()
     date = models.DateTimeField(auto_now_add=True)
