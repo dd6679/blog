@@ -5,11 +5,7 @@
     <ul style="width:1000px; margin:0 auto;">
     {% for post in post_list %}
         <li class="list-group-item"><a href="{% url 'blog:detail' post.id %}"><h4>{{ post.title }}</h4>
-        <br>{{post.post_text}}
         <br>{{post.date}}
-            {% for photo in post.photo_set.all%}
-            <img src="{{photo.image.url}}" width="50">
-            {% endfor %}
         </a></li>
     {% endfor %}
     </ul>
