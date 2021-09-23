@@ -9,6 +9,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
     <title>Blog</title>
+     <style>
+    h4 {
+    color: black;
+    }
+    a {
+    color: #656565;
+    }
+    </style>
 </head>
 <body>
 <!-- 네비게이션바 -->
@@ -23,8 +31,8 @@
             <li class="nav-item" style="margin-left: 1550px">
                 <a href="{% url 'blog:create' %}"><button type="button" class="btn btn-danger">글쓰기</button></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'blog:mypage' %}">정보</a>
+            <li class="nav-item" style="margin-left: 10px">
+                <a class="nav-link" href="{% url 'blog:mypage' %}"><img class="account" src="{% static 'img/account.png' %}" alt="MyImage" width="30" height="auto"></a>
             </li>
         </ul>
     </div>

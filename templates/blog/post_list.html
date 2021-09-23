@@ -2,9 +2,9 @@
 {% block content %}
 
 {% if post_list %}
-    <ul class="list-group">
+    <ul style="width:1000px; margin:0 auto;">
     {% for post in post_list %}
-        <li class="list-group-item"><a href="{% url 'blog:detail' post.id %}">{{ post.title }}
+        <li class="list-group-item"><a href="{% url 'blog:detail' post.id %}"><h4>{{ post.title }}</h4>
         <br>{{post.post_text}}
         <br>{{post.date}}
         </a></li>
@@ -20,11 +20,11 @@
         <!-- 이전페이지 -->
         {% if post_list.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ post_list.previous_page_number }}">이전</a>
+            <a class="page-link text-danger" href="?page={{ post_list.previous_page_number }}">&laquo;</a>
         </li>
         {% else %}
         <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&laquo;</a>
         </li>
         {% endif %}
         <!-- 페이지리스트 -->
@@ -32,11 +32,11 @@
         {% if page_number >= post_list.number|add:-5 and page_number <= post_list.number|add:5 %}
             {% if page_number == post_list.number %}
             <li class="page-item active" aria-current="page">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                <a class="page-link bg-danger border-danger" href="?page={{ page_number }}">{{ page_number }}</a>
             </li>
             {% else %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                <a class="page-link text-danger" href="?page={{ page_number }}">{{ page_number }}</a>
             </li>
             {% endif %}
         {% endif %}
@@ -44,11 +44,11 @@
         <!-- 다음페이지 -->
         {% if post_list.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ post_list.next_page_number }}">다음</a>
+            <a class="page-link text-danger" href="?page={{ post_list.next_page_number }}">&raquo;</a>
         </li>
         {% else %}
         <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&raquo;</a>
         </li>
         {% endif %}
     </ul>

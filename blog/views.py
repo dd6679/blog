@@ -10,7 +10,7 @@ from django.utils import timezone
 def index(request):
     page = request.GET.get('page', '1')
     post_list = Post.objects.filter(user=request.user).order_by('date')
-    paginator = Paginator(post_list, 10)
+    paginator = Paginator(post_list, 6)
     page_obj = paginator.get_page(page)
     content = {'post_list':page_obj}
     return render(request, 'blog/post_list.html', content)
@@ -36,7 +36,7 @@ def create(request):
 
 def detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    photo = Photo.objects.get(post_id=post_id)
+    photo = Photo.objects.filter(post_id=post_id)
     content = {'post':post, 'photo':photo}
     return render(request, 'blog/post_detail.html', content)
 
