@@ -5,13 +5,13 @@
     <div style="text-align:center">
         <h1 class="m-4">{{ post.title }}</h1>
         <p>
-        {{ post.user }}
-        {{ post.date }}
-        {% if post.public == False %}
-        비공개
-        {% else %}
-        공개
-        {% endif %}
+            {{ post.user }}
+            {{ post.date }}
+            {% if post.public == False %}
+            비공개
+            {% else %}
+            공개
+            {% endif %}
         </p>
     </div>
     {% if request.user == post.user %}
@@ -19,33 +19,35 @@
         <a href="{% url 'blog:post_modify' post.id  %}"
            class="btn btn-sm btn-outline-secondary"><img class="edit" src="{% static 'img/edit.png' %}" alt="MyImage">수정</a>
         <a href="{% url 'blog:post_delete' post.id  %}"
-           class="delete btn btn-sm btn-outline-secondary ml-2" style="color: red"><img class="delete" src="{% static 'img/delete.png' %}" alt="MyImage">삭제</a>
+           class="delete btn btn-sm btn-outline-secondary ml-2" style="color: red"><img class="delete"
+                                                                                        src="{% static 'img/delete.png' %}"
+                                                                                        alt="MyImage">삭제</a>
     </div>
     {% endif %}
     <hr>
     <div class="m-5">
         {{ post.post_text|safe }}
         {% for photo in post.photo_set.all%}
-            <img src="{{photo.image.url}}" width="600">
+        <img src="{{photo.image.url}}" width="600">
         {% endfor %}
     </div>
 
-<!--댓글-->
+    <!--댓글-->
     <h4>댓글</h4>
     <hr>
     {% for comment in post.comment_set.all %}
     {{ comment.comment_text }}
     <p>{{ comment.date }} {{ comment.author }}</p>
     {% if request.user == comment.author %}
-            <a href="{% url 'blog:comment_delete' comment.id  %}" class="small delete">삭제</a>
-            {% endif %}
+    <a href="{% url 'blog:comment_delete' comment.id  %}" class="small delete">삭제</a>
+    {% endif %}
     <hr>
     {% endfor %}
     <form method="POST" action="{% url 'blog:comment_create' post.id %}">
         {% csrf_token %}
         {{ comment_form }}
         <div class="d-flex justify-content-end">
-        <input type="submit" class="btn btn-danger mb-5" value="등록">
+            <input type="submit" class="btn btn-danger mb-5" value="등록">
         </div>
     </form>
 </div>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'common.css' %}">
     <title>Blog</title>
-     <style>
+    <style>
     h4 {
     color: black;
     }
@@ -22,6 +22,7 @@
     .form-control {
     width: 500px;
     }
+
     </style>
 </head>
 <body>
@@ -29,16 +30,20 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <a href="{% url 'blog:index' %}"><img class="icon_mini" src="{% static 'img/icon_mini.png' %}" alt="MyImage"></a>
     <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item" style="margin-left: 1550px">
-                <a href="{% url 'blog:create' %}"><button type="button" class="btn btn-danger">글쓰기</button></a>
+                <a href="{% url 'blog:create' %}">
+                    <button type="button" class="btn btn-danger">글쓰기</button>
+                </a>
             </li>
             <li class="nav-item" style="margin-left: 10px">
-                <a class="nav-link" href="{% url 'blog:mypage' %}"><img class="account" src="{% static 'img/account.png' %}" alt="MyImage" width="30" height="auto"></a>
+                <a class="nav-link" href="{% url 'blog:mypage' %}"><img class="account"
+                                                                        src="{% static 'img/account.png' %}"
+                                                                        alt="MyImage" width="30" height="auto"></a>
             </li>
         </ul>
     </div>

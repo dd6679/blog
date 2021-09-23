@@ -12,7 +12,7 @@ def index(request):
     post_list = Post.objects.filter(user=request.user).order_by('-date')
     paginator = Paginator(post_list, 7)
     page_obj = paginator.get_page(page)
-    content = {'post_list':page_obj}
+    content = {'post_list': page_obj}
     return render(request, 'blog/post_list.html', content)
 
 
@@ -20,7 +20,7 @@ def create(request):
     if request.method == 'POST' or request.method == 'FILES':
         form = PostForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False) #DB save 지연시켜 중복 save 방지
+            post = form.save(commit=False)  # DB save 지연시켜 중복 save 방지
             post.user = request.user
             post.save()
             for img in request.FILES.getlist('imgs'):
@@ -31,14 +31,14 @@ def create(request):
             return redirect('index')
     else:
         form = PostForm()
-    return render(request, 'blog/post_create.html', {'form':form})
+    return render(request, 'blog/post_create.html', {'form': form})
 
 
 def detail(request, post_id):
     post = Post.objects.get(id=post_id)
     photo = Photo.objects.filter(post_id=post_id)
     comment_form = CommentForm()
-    content = {'post':post, 'photo':photo, 'comment_form':comment_form}
+    content = {'post': post, 'photo': photo, 'comment_form': comment_form}
     return render(request, 'blog/post_detail.html', content)
 
 
@@ -51,7 +51,7 @@ def mypage(request):
             return redirect('index')
     else:
         form = CustomUserChangeForm(instance=request.user)
-    return render(request, 'blog/mypage.html', {'form':form})
+    return render(request, 'blog/mypage.html', {'form': form})
 
 
 @login_required(login_url='common:login')
@@ -103,7 +103,7 @@ def comment_create(request, post_id):
             return redirect('blog:detail', post_id=post_id)
     else:
         form = CommentForm()
-    return redirect(request, 'blog:detail', {'form':form})
+    return redirect(request, 'blog:detail', {'form': form})
 
 
 # @login_required(login_url='common:login')

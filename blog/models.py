@@ -27,7 +27,3 @@ class Comment(models.Model):
     comment_text = models.TextField(max_length=128)
     public = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
-
-
-
-

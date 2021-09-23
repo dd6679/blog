@@ -15,9 +15,8 @@ class PhotoInline(admin.TabularInline):
 
 class PostAdmin(admin.ModelAdmin):
     search_fields = ['title']
-    inlines = [PhotoInline, VideoInline,]
+    inlines = [PhotoInline, VideoInline, ]
 
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment)
-

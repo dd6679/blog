@@ -3,19 +3,19 @@
 {% load static %}
 
 <div class="mt-5" align="center" style="float: none; margin:100 auto;">
-<img class="account_big" src="{% static 'img/account_big.png' %}" alt="MyImage">
-<a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
+    <img class="account_big" src="{% static 'img/account_big.png' %}" alt="MyImage">
+    <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
     <form action="" class="post-form" method="POST">
         {% csrf_token %}
         <div class="form-group">
-            <label style="margin-right: 480px"  for="username">ID</label>
+            <label style="margin-right: 480px" for="username">ID</label>
             <input type="text" class="form-control" name="username" id="username"
                    value="{{ form.username.value|default_if_none:'' }}">
         </div>
 
-    <div style="margin-left: 450px;">
-        <button type="submit" class="btn btn-danger m-5">저장</button>
-    </div>
+        <div style="margin-left: 450px;">
+            <button type="submit" class="btn btn-danger m-5">저장</button>
+        </div>
     </form>
 </div>
 {% endblock %}
