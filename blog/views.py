@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Photo
 from django.core.paginator import Paginator
-from .forms import PostForm, PhotoForm
+from .forms import PostForm
 from django.utils import timezone
 
 
@@ -19,19 +19,19 @@ def index(request):
 def create(request):
     if request.method == 'POST' or request.method == 'FILES':
         form = PostForm(request.POST)
-        photoform = PhotoForm(request.FILES)
-        if form.is_valid() and photoform.is_valid():
+        if form.is_valid():
             post = form.save(commit=False) #DB save 지연시켜 중복 save 방지
             post.user = request.user
             post.save()
-            photo = photoform.save(commit=False)
-            photo.post_id = post
-            photo.save()
+            for img in request.FILES.getlist('imgs'):
+                photo = Photo()
+                photo.post_id = post
+                photo.image = img
+                photo.save()
             return redirect('index')
     else:
         form = PostForm()
-        photoform = PhotoForm()
-    return render(request, 'blog/post_create.html', {'form':form, 'photoform':photoform})
+    return render(request, 'blog/post_create.html', {'form':form})
 
 
 def detail(request, post_id):
@@ -58,6 +58,11 @@ def post_modify(request, post_id):
             post = form.save(commit=False)
             post.date = timezone.now()  # 수정일시 저장
             post.save()
+            for img in request.FILES.getlist('imgs'):
+                photo = Photo()
+                photo.post_id = post
+                photo.image = img
+                photo.save()
             return redirect('blog:detail', post_id=post.id)
     else:
         form = PostForm(instance=post)

@@ -23,9 +23,9 @@
     <hr>
     <div class="m-5">
         {{ post.post_text|linebreaks }}
-        {% if photo %}
-            <img src="{{ photo.0.image.url }}" alt="" height="600">
-        {% endif %}
+        {% for photo in post.photo_set.all%}
+            <img src="{{photo.image.url}}" width="600">
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
