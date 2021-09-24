@@ -27,9 +27,6 @@
     <hr>
     <div class="m-5">
         {{ post.post_text|safe }}
-        {% for photo in post.photo_set.all%}
-        <img src="{{photo.image.url}}" width="600">
-        {% endfor %}
     </div>
 
     <!--댓글-->

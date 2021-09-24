@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Photo, Comment
+from .models import Post, Comment
 from django.core.paginator import Paginator
 from .forms import PostForm, CustomUserChangeForm, CommentForm
 from django.utils import timezone
@@ -23,11 +23,6 @@ def create(request):
             post = form.save(commit=False)  # DB save 지연시켜 중복 save 방지
             post.user = request.user
             post.save()
-            for img in request.FILES.getlist('imgs'):
-                photo = Photo()
-                photo.post_id = post
-                photo.image = img
-                photo.save()
             return redirect('index')
     else:
         form = PostForm()
@@ -66,11 +61,6 @@ def post_modify(request, post_id):
             post = form.save(commit=False)
             post.date = timezone.now()  # 수정일시 저장
             post.save()
-            for img in request.FILES.getlist('imgs'):
-                photo = Photo()
-                photo.post_id = post
-                photo.image = img
-                photo.save()
             return redirect('blog:detail', post_id=post.id)
     else:
         form = PostForm(instance=post)

@@ -5,18 +5,9 @@
         {% csrf_token %}
         <table class="table">
             {{ form.as_table }}
+<!--            텍스트에디터 적용-->
             {{ form.media }}
         </table>
-<!--            <div class="filebox">-->
-<!--                <label for="ex_file">사진</label>-->
-<!--                <input type="file" id="ex_file" name="imgs" multiple>-->
-<!--            </div>-->
-<!--            <div class="my-3">-->
-<!--                <a-->
-<!--                   class="btn btn-sm btn-outline-secondary">사진</a>-->
-<!--                <a-->
-<!--                   class="delete btn btn-sm btn-outline-secondary">동영상</a>-->
-<!--            </div>-->
         <div class="d-flex justify-content-end">
             <input type="submit" class="btn btn-danger" value="완료">
         </div>
