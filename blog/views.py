@@ -36,9 +36,8 @@ def create(request):
 
 def detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    photo = Photo.objects.filter(post_id=post_id)
     comment_form = CommentForm()
-    content = {'post': post, 'photo': photo, 'comment_form': comment_form}
+    content = {'post': post, 'comment_form': comment_form}
     return render(request, 'blog/post_detail.html', content)
 
 
@@ -104,24 +103,6 @@ def comment_create(request, post_id):
     else:
         form = CommentForm()
     return redirect(request, 'blog:detail', {'form': form})
-
-
-# @login_required(login_url='common:login')
-# def comment_modify(request, comment_id):
-#     comment = get_object_or_404(Comment, pk=comment_id)
-#     if request.user != comment.author:
-#         messages.error(request, '댓글 수정 권한이 없습니다')
-#         return redirect('blog:detail', post_id=comment.post_id.id)
-#     if request.method == "POST":
-#         form = CommentForm(request.POST, instance=comment)
-#         if form.is_valid():
-#             comment = form.save(commit=False)
-#             comment.date = timezone.now()
-#             comment.save()
-#             return redirect('blog:detail', post_id=comment.post_id.id)
-#     else:
-#         form = CommentForm(instance=comment)
-#     return redirect(request, 'blog:detail', {'form':form})
 
 
 @login_required(login_url='common:login')

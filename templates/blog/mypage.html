@@ -4,17 +4,17 @@
 
 <div class="mt-5" align="center" style="float: none; margin:100 auto;">
     <img class="account_big" src="{% static 'img/account_big.png' %}" alt="MyImage">
-    <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
     <form action="" class="post-form" method="POST">
         {% csrf_token %}
-        <div class="form-group">
+        <div class="form-group mt-5">
             <label style="margin-right: 480px" for="username">ID</label>
             <input type="text" class="form-control" name="username" id="username"
                    value="{{ form.username.value|default_if_none:'' }}">
         </div>
 
-        <div style="margin-left: 450px;">
-            <button type="submit" class="btn btn-danger m-5">저장</button>
+        <div style="margin-left: 350px;">
+            <a class="nav-link" style="display: inline-block" href="{% url 'common:logout' %}"><button type="button" class="btn btn-dark">로그아웃</button></a>
+            <button type="submit" class="btn btn-danger">저장</button>
         </div>
     </form>
 </div>
