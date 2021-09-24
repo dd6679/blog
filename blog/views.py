@@ -16,6 +16,8 @@ def index(request):
     return render(request, 'blog/post_list.html', content)
 
 
+# 글 쓰기
+@login_required(login_url='common:login')
 def create(request):
     if request.method == 'POST' or request.method == 'FILES':
         form = PostForm(request.POST)
@@ -48,6 +50,7 @@ def mypage(request):
     return render(request, 'blog/mypage.html', {'form': form})
 
 
+# 글 수정
 @login_required(login_url='common:login')
 def post_modify(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -68,6 +71,7 @@ def post_modify(request, post_id):
     return render(request, 'blog/post_create.html', context)
 
 
+# 글 삭제
 @login_required(login_url='common:login')
 def post_delete(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -78,6 +82,7 @@ def post_delete(request, post_id):
     return redirect('blog:index')
 
 
+# 댓글 쓰기
 @login_required(login_url='common:login')
 def comment_create(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -95,6 +100,7 @@ def comment_create(request, post_id):
     return redirect(request, 'blog:detail', {'form': form})
 
 
+# 댓글 삭제
 @login_required(login_url='common:login')
 def comment_delete(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)

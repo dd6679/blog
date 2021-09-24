@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserChangeForm
 
 
+# 게시글 폼
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -18,6 +19,7 @@ class PostForm(forms.ModelForm):
         }
 
 
+# 마이페이지 이름 수정 폼
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
@@ -31,6 +33,7 @@ class CustomUserChangeForm(UserChangeForm):
         }
 
 
+# 댓글 폼
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
