@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div style="width:1000px; margin:0 auto;">
-    <form action="" method="POST" enctype="multipart/form-data" style="width:1000px">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <table class="table">
             {{ form.as_table }}

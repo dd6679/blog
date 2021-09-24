@@ -4,9 +4,13 @@
 {% if post_list %}
 <ul style="width:1000px; margin:0 auto;">
     {% for post in post_list %}
-    <li class="list-group-item"><a href="{% url 'blog:detail' post.id %}"><h4>{{ post.title }}</h4>
-        <br>{{post.date}}
-    </a></li>
+    <a class="btn-secondary" href="{% url 'blog:detail' post.id %}">
+        <li class="list-group-item a-hover"><h4>{{ post.title }}</h4>
+        <br>
+        <p class="small">{{post.date}}</p>
+            <div class="d-flex justify-content-end">
+                <p class="text-danger small">댓글 수 : {{ post.comment_set.count }}</p></div>
+    </li></a>
     {% endfor %}
 </ul>
 {% else %}
@@ -19,9 +23,15 @@
     <!-- 이전페이지 -->
     {% if post_list.has_previous %}
     <li class="page-item">
+        <a class="page-link text-danger" href="?page={{ post_list.0 }}">F</a>
+    </li>
+    <li class="page-item">
         <a class="page-link text-danger" href="?page={{ post_list.previous_page_number }}">&laquo;</a>
     </li>
     {% else %}
+    <li class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">F</a>
+    </li>
     <li class="page-item disabled">
         <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&laquo;</a>
     </li>
@@ -46,9 +56,15 @@
     <li class="page-item">
         <a class="page-link text-danger" href="?page={{ post_list.next_page_number }}">&raquo;</a>
     </li>
+    <li class="page-item">
+        <a class="page-link text-danger" href="?page={{ post_list.end_index }}">L</a>
+    </li>
     {% else %}
     <li class="page-item disabled">
         <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&raquo;</a>
+    </li>
+        <li class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">L</a>
     </li>
     {% endif %}
 </ul>

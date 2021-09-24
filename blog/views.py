@@ -10,7 +10,7 @@ from django.utils import timezone
 def index(request):
     page = request.GET.get('page', '1')
     post_list = Post.objects.filter(user=request.user).order_by('-date')
-    paginator = Paginator(post_list, 7)
+    paginator = Paginator(post_list, 5)
     page_obj = paginator.get_page(page)
     content = {'post_list': page_obj}
     return render(request, 'blog/post_list.html', content)
