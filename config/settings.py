@@ -135,3 +135,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [["Format", 'FontSize', "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
+                    ['NumberedList', 'BulletedList', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+                    ["Image", "Youtube", "Table", "Link", "Unlink", "Anchor", "SectionLink", 'Smiley'],
+                    ['TextColor', 'BGColor'], ['Undo', 'Redo']],
+        'height': 500,
+        'width': '100%',
+        'allowedContent': True,
+        'uiColor': '#f0f0f0',
+        'extraPlugins': 'link,iframe,colorbutton,autogrow,youtube',
+        'autoGrow_maxHeight': 800,
+        'autoGrow_minHeight': 500,
+        'removePlugins': 'resize',
+        'removeButtons': None,
+    },
+}
