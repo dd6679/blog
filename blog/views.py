@@ -9,10 +9,25 @@ from django.utils import timezone
 
 def index(request):
     page = request.GET.get('page', '1')
+    max_page_cnt = 5
     post_list = Post.objects.filter(user=request.user).order_by('-date')
     paginator = Paginator(post_list, 5)
     page_obj = paginator.get_page(page)
-    content = {'post_list': page_obj}
+    # 전체 페이지 마지막 번호
+    last_page_num = 0
+    for last_page in paginator.page_range:
+        last_page_num = last_page_num + 1
+    # 현재 페이지가 몇번째 블럭인지
+    current_block = ((int(page) - 1) / max_page_cnt) + 1
+    current_block = int(current_block)
+    # 페이지 시작 번호
+    page_start_num = ((current_block - 1) * max_page_cnt) + 1
+    # 페이지 끝 번호
+    page_end_num = page_start_num + max_page_cnt - 1
+    content = {'post_list': page_obj,
+               'last_page_num': last_page_num,
+               'page_start_num': page_start_num,
+               'page_end_num': page_end_num,}
     return render(request, 'blog/post_list.html', content)
 
 

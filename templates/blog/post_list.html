@@ -23,7 +23,7 @@
     <!-- 이전페이지 -->
     {% if post_list.has_previous %}
     <li class="page-item">
-        <a class="page-link text-danger" href="?page={{ post_list.0 }}">F</a>
+        <a class="page-link text-danger" href="?page=1">F</a>
     </li>
     <li class="page-item">
         <a class="page-link text-danger" href="?page={{ post_list.previous_page_number }}">&laquo;</a>
@@ -38,8 +38,8 @@
     {% endif %}
     <!-- 페이지리스트 -->
     {% for page_number in post_list.paginator.page_range %}
-<!--    보이는 페이지 개수 제한-->
-    {% if page_number >= post_list.number|add:-4 and page_number <= post_list.number|add:4 %}
+    <!--  보이는 페이지 개수 제한-->
+    {% if page_start_num <= page_number and page_end_num >= page_number %}
     {% if page_number == post_list.number %}
     <li class="page-item active" aria-current="page">
         <a class="page-link bg-danger border-danger" href="?page={{ page_number }}">{{ page_number }}</a>
@@ -57,7 +57,7 @@
         <a class="page-link text-danger" href="?page={{ post_list.next_page_number }}">&raquo;</a>
     </li>
     <li class="page-item">
-        <a class="page-link text-danger" href="?page={{ post_list.end_index }}">L</a>
+        <a class="page-link text-danger" href="?page={{ last_page_num }}">L</a>
     </li>
     {% else %}
     <li class="page-item disabled">
