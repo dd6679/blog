@@ -11,16 +11,6 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
-class Video(models.Model):
-    post_id = models.ForeignKey('Post', db_column='post_id', on_delete=models.CASCADE, null=True)
-    url = models.CharField(max_length=128, null=True, blank=True)
-
-
-class Photo(models.Model):
-    post_id = models.ForeignKey('Post', db_column='post_id', on_delete=models.CASCADE, null=True)
-    image = models.ImageField(upload_to='img', blank=True, null=True)
-
-
 class Comment(models.Model):
     post_id = models.ForeignKey('Post', db_column='post_id', on_delete=models.CASCADE, null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

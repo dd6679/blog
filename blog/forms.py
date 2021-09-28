@@ -15,7 +15,6 @@ class PostForm(forms.ModelForm):
                     'class': 'form-control'
                 }
             ),
-
         }
 
 
