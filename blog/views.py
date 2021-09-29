@@ -34,7 +34,7 @@ def index(request):
 # 글 쓰기
 @login_required(login_url='common:login')
 def create(request):
-    if request.method == 'POST' or request.method == 'FILES':
+    if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)  # DB save 지연시켜 중복 save 방지
