@@ -5,6 +5,7 @@ from blog import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+# 프로젝트 성격의 URL 매핑
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('blog/', include('blog.urls')),
